@@ -6,12 +6,13 @@ from .models import User
 # Fonction pour ajouter et afficher les étudiants
 def add_show(request):
     if request.method == 'POST':
-        fm = StudentRegistration(request.POST)
+        fm = StudentRegistration(request.POST, request.FILES)
         if fm.is_valid():
+            img = fm.cleaned_data['image']
             nm = fm.cleaned_data['name']
             em = fm.cleaned_data['email']
             pw = fm.cleaned_data['password']
-            reg = User(name = nm, email = em, password = pw)
+            reg = User(image = img, name = nm, email = em, password = pw)
             reg.save()
             fm = StudentRegistration()
     else:
@@ -21,9 +22,9 @@ def add_show(request):
 
 #Fonction pour mettre à jour les données d'un étudiant
 def update_data(request, id):
-    if request.method == 'POST':
+    if (request.method == 'POST'):
         pi = User.objects.get(pk = id)
-        fm = StudentRegistration(request.POST, instance=pi)
+        fm = StudentRegistration(request.POST, request.FILES, instance=pi)
         if fm.is_valid():
             fm.save()
     else:
