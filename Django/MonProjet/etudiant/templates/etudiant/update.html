@@ -1,0 +1,18 @@
+{% extends 'etudiant/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-4 col-lg-4">
+            <div class="card shadow-lg p-3">
+                <h2 class="text-center card-title text-center mb-4 fs-4 alert alert-info">Modifier les information d'un etudiant</h2>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Modifier</button>
+                    <a href="{% url 'add_show' %}" class="btn btn-info">Retour</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
